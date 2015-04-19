@@ -15,16 +15,19 @@ function sendFile(response, filepath, fileContents){
 		200,
 		{'Content-Type': mime.lookup(path.basename(filepath))}
 		);
+	console.log('Sending: ' + fileContents);
 	response.write(fileContents);
+	console.log('Sent');
 }
 
 function serverStatic(response, cache, absPath){
+	console.log('New request: ' + absPath);
 	if(cache[absPath]){
 		sendFile(response, absPath, cache[absPath]);
 	} else {
 		fs.exists(absPath, function(exists) {
 			if(exists){
-				fs.readfile(absPath, function(err, data) {
+				fs.readFile(absPath, function(err, data) {
 					if(err) {
 						send404(response);
 					} else {
@@ -52,6 +55,7 @@ var server = http.createServer(function(request, response) {
 	var absPath = './' + filepath;
 	console.log(request.connection.localAddress + ' connected');
 	serverStatic(response, cache, absPath);
+	console.log('Served');
 });
 
 port = process.env.PORT || 5000;
