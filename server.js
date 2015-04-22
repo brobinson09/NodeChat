@@ -2,7 +2,7 @@ var http = require('http');
 var fs	 = require('fs');	
 var path = require('path');				
 var mime = require('mime');	
-var chatServer = require('./lib/chat_server2')	
+var chatServer = require('./lib/chat_server')	
  		
 var cache = {};
 

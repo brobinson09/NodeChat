@@ -11,13 +11,13 @@ function processUserInput(chatApp, socket) {
 	var systemMessage;
 
 	if(message.charAt(0) == '/') {
-		systemMessage = chatApp.proccessCommand(message);
+		systemMessage = chatApp.processCommand(message);
 		if(systemMessage) {
 			$('#messages').append(divSystemContentElement(systemMessage));
 		}
 	}	else {
 		chatApp.sendMessage($('#room').text(), message);
-		$('#messages').append(divEscapedContentElement(message));
+		$('#messages').append(divEscapedContentElement('You: ' + message));
 		$('#messages').scrollTop($('#messages').prop('scrollHeight')); //??
 	}
 	$('#send-message').val('');
@@ -40,7 +40,7 @@ var socket = io.connect();
 
 		socket.on('joinResult', function(result) {
 			$('#room').text(result.room);
-			$('#messages').append(divSystemContentElement(message));
+			$('#messages').append(divSystemContentElement('Room changed to ' + result.room));
 		});
 
 		socket.on('message', function(message) {
@@ -59,7 +59,7 @@ var socket = io.connect();
 			}
 
 			$('#room-list div').click(function() {
-				chatApp.proccessCommand('/join ' + $(this).text());
+				chatApp.processCommand('/join ' + $(this).text);
 				$('#send-message').focus();
 			});
 		});
