@@ -2,7 +2,7 @@ var http = require('http');
 var fs	 = require('fs');	
 var path = require('path');				
 var mime = require('mime');	
-var chatServer = require('./lib/chat_server')	
+var chatServer = require('./lib/chat_server2')	
  		
 var cache = {};
 
@@ -17,9 +17,8 @@ function sendFile(response, filepath, fileContents){
 		200,
 		{'content-type': mime.lookup(path.basename(filepath))}
 		);
-	console.log('Sending: ' + fileContents);
 	response.end(fileContents);
-	console.log('Sent');
+	console.log('Sent File ');
 }
 
 function serverStatic(response, cache, absPath){
