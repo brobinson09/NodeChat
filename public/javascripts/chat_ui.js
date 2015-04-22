@@ -1,3 +1,4 @@
+
 function divEscapedContentElement(message) {
 	return $('<div></div>').text(message);
 }
@@ -46,6 +47,7 @@ var socket = io.connect();
 		socket.on('message', function(message) {
 			var newElement = $('<div></div>').text(message.text);
 			$('#messages').append(newElement);
+			
 		});
 
 		socket.on('rooms', function(rooms) {
@@ -59,7 +61,7 @@ var socket = io.connect();
 			}
 
 			$('#room-list div').click(function() {
-				chatApp.processCommand('/join ' + $(this).text);
+				chatApp.processCommand('/join ' + $(this).text());
 				$('#send-message').focus();
 			});
 		});

@@ -32,7 +32,7 @@ function serverStatic(response, cache, absPath){
 					if(err) {
 						send404(response);
 					} else {
-						cache[absPath] = data;
+						//cache[absPath] = data;
 						sendFile(response, absPath, data);
 					}
 				});
